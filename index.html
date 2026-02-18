@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Faberson Perfeito | Software Engineer</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--fg:#f0f0f5;--muted:#a0a0b0;--border:rgba(255,255,255,.06);--primary:#6366f1;--primary2:#8b5cf6}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
+.bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(99,102,241,.05),transparent)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,15,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.nav-container{padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto}
+.logo{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none;font-family:ui-monospace,monospace}
+.logo .cursor{color:var(--primary);animation:blink 1s infinite}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .15s}
+.nav-links a:hover{color:var(--fg)}
+.theme-btn{background:transparent;border:1px solid var(--border);border-radius:8px;padding:.5rem;color:var(--muted);cursor:pointer;width:40px;height:40px;font-size:1.2rem;transition:all .15s}
+.theme-btn:hover{border-color:rgba(255,255,255,.12);color:var(--fg)}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 1.5rem 4rem;z-index:10}
+.hero-content{max-width:600px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .85rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:100px;font-size:.75rem;color:#10b981;margin-bottom:1.5rem}
+.status-dot{width:7px;height:7px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.hero-name{font-size:clamp(2rem,5vw,3rem);font-weight:800;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;margin-bottom:1rem}
+.hero-subtitle{font-size:1.2rem;color:var(--fg);margin-bottom:1rem}
+.hero-description{color:var(--muted);font-size:1rem;margin-bottom:2rem;line-height:1.7}
+.hero-actions{display:flex;gap:1rem;justify-content:center;margin-bottom:2.5rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.8rem 1.5rem;border-radius:10px;font-size:.9rem;font-weight:600;text-decoration:none;transition:transform .15s;cursor:pointer;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);color:#fff;box-shadow:0 4px 20px rgba(99,102,241,.25)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-secondary{background:transparent;color:var(--fg);border:1px solid var(--border)}
+.btn-secondary:hover{background:rgba(255,255,255,.05)}
+.hero-tech{display:flex;flex-direction:column;align-items:center;gap:.75rem}
+.tech-label{color:#707080;font-size:.8rem}
+.tech-tags{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center}
+.tech-tag{padding:.3rem .6rem;background:#1a1a24;border:1px solid var(--border);border-radius:6px;font-size:.7rem;font-family:ui-monospace,monospace;color:var(--muted);transition:border-color .15s}
+.tech-tag:hover{border-color:var(--primary);color:var(--fg)}
+section{position:relative;z-index:10;padding:4rem 1.5rem}
+.container{max-width:1000px;margin:0 auto}
+.section-title{font-size:2rem;font-weight:700;margin-bottom:3rem;text-align:center}
+.section-title .highlight{background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.about-content{display:grid;grid-template-columns:1fr;gap:3rem}
+.about-text p{color:var(--muted);font-size:1rem;margin-bottom:1rem;line-height:1.7}
+.about-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.stat{padding:1.5rem;background:#111118;border:1px solid var(--border);border-radius:12px;text-align:center;transition:transform .15s}
+.stat:hover{transform:translateY(-2px)}
+.stat-value{font-size:2rem;font-weight:700;color:var(--fg)}
+.stat-label{font-size:.8rem;color:#707080}
+.education-card{padding:1.5rem;background:#111118;border:1px solid var(--border);border-radius:12px;display:flex;gap:1rem;align-items:center}
+.education-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.education-content h3{font-size:1.1rem;margin-bottom:.25rem}
+.education-content p{font-size:.9rem;color:#707080}
+.skills{background:#111118}
+.skills-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.skill-card{padding:1.5rem;background:#1a1a24;border:1px solid var(--border);border-radius:14px;transition:transform .15s}
+.skill-card:hover{transform:translateY(-3px)}
+.skill-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);border-radius:12px;font-size:1rem;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.skill-card h3{font-size:1.1rem;margin-bottom:.5rem}
+.skill-card p{font-size:.9rem;color:#707080;margin-bottom:1rem;line-height:1.6}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.skill-tags span{padding:.25rem .5rem;background:#0a0a0f;border-radius:5px;font-size:.75rem;color:var(--muted);font-family:ui-monospace,monospace}
+.timeline{position:relative;max-width:600px;margin:0 auto;padding-left:1.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--primary),var(--primary2))}
+.timeline-item{position:relative;padding-left:2rem;padding-bottom:3rem}
+.timeline-marker{position:absolute;left:-5px;top:0;width:12px;height:12px;background:var(--primary);border-radius:50%;border:2px solid #0a0a0f}
+.timeline-date{padding:.3rem .6rem;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);border-radius:100px;font-size:.75rem;font-weight:600;margin-bottom:.5rem;display:inline-block;color:#fff}
+.timeline-content h3{font-size:1.1rem;margin-bottom:.3rem}
+.timeline-content h4{font-size:.95rem;color:var(--primary);margin-bottom:.5rem}
+.timeline-content p{color:#707080;line-height:1.6}
+.certs-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.cert-card{display:flex;gap:1rem;padding:1.5rem;background:#1a1a24;border:1px solid var(--border);border-radius:10px;transition:transform .15s}
+.cert-card:hover{transform:translateY(-2px)}
+.cert-icon{width:48px;height:48px;background:rgba(99,102,241,.12);border-radius:10px;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.cert-card h3{font-size:1rem;margin-bottom:.25rem}
+.cert-card p{font-size:.85rem;color:#707080}
+.contact-links{display:flex;flex-direction:column;gap:1rem;max-width:500px;margin:0 auto}
+.contact-link{display:flex;align-items:center;gap:1rem;padding:1.5rem;background:#111118;border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:transform .15s}
+.contact-link:hover{transform:translateX(3px)}
+.contact-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.contact-info h3{font-size:1rem;margin-bottom:.25rem}
+.contact-info p{font-size:.9rem;color:#707080}
+.footer{padding:2rem 1.5rem;background:#111118;border-top:1px solid var(--border);text-align:center}
+.footer p{font-size:.9rem;color:#707080}
+@media (min-width:768px){
+.hero-content{text-align:left;max-width:650px}
+.hero-actions{justify-content:flex-start}
+.hero-tech{align-items:flex-start}
+.tech-tags{justify-content:flex-start}
+.about-content{grid-template-columns:1fr 1fr}
+.about-stats{grid-template-columns:repeat(2,1fr)}
+.skills-grid{grid-template-columns:repeat(2,1fr)}
+.certs-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:1024px){
+.skills-grid{grid-template-columns:repeat(3,1fr)}
+.certs-grid{grid-template-columns:repeat(3,1fr)}
+}
+[data-theme=light]{--bg:#fff;--fg:#0f172a;--muted:#475569;--border:rgba(0,0,0,.06);--primary:#4f46e5;--primary2:#7c3aed}
+[data-theme=light] .bg{background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(79,70,229,.02),transparent)}
+[data-theme=light] .nav{background:rgba(255,255,255,.85)}
+[data-theme=light] .logo .cursor{color:var(--primary)}
+[data-theme=light] .nav-links a{color:#64748b}
+[data-theme=light] .nav-links a:hover{color:var(--primary)}
+[data-theme=light] .theme-btn{border-color:var(--border);color:#64748b}
+[data-theme=light] .theme-btn:hover{color:#475569}
+[data-theme=light] .tech-tag{background:#f1f5f9;color:#475569}
+[data-theme=light] .stat{background:#fff}
+[data-theme=light] .education-card{background:#fff}
+[data-theme=light] .skill-card{background:#f8fafc}
+[data-theme=light] .skill-tags span{background:#fff;color:#475569}
+[data-theme=light] .skills{background:#f8fafc}
+[data-theme=light] .cert-card{background:#f8fafc}
+[data-theme=light] .contact-link{background:#fff}
+[data-theme=light] .footer{background:#f8fafc}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav class="nav">
+  <div class="nav-container">
+    <a href="#" class="logo">FP<span class="cursor">_</span></a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-btn" id="themeToggle">🌙</button>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="status-dot"></span>Available for opportunities</div>
+    <h1 class="hero-name">Faberson Perfeito</h1>
+    <p class="hero-subtitle">Software Engineer</p>
+    <p class="hero-description">Specializing in scalable solutions with <strong>.NET</strong>, <strong>Azure</strong>, <strong>iOS</strong> and <strong>Flutter</strong>. Transforming ideas into high-performance code.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+      <a href="https://www.linkedin.com/in/perfeito" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="hero-tech">
+      <span class="tech-label">Tech Stack</span>
+      <div class="tech-tags">
+        <span class="tech-tag">.NET</span><span class="tech-tag">Azure</span><span class="tech-tag">C#</span><span class="tech-tag">iOS</span><span class="tech-tag">Flutter</span><span class="tech-tag">Swift</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">About <span class="highlight">Me</span></h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>Software engineer passionate about technology and innovation. With experience in multiple platforms, I constantly seek to evolve and stay updated with the best market practices.</p>
+        <p>My journey includes work on challenging projects at <strong>CRM-PR</strong>, where I apply my skills to create robust and scalable solutions.</p>
+        <div class="about-stats">
+          <div class="stat"><span class="stat-value">MCSD</span><span class="stat-label">Microsoft Certified</span></div>
+          <div class="stat"><span class="stat-value">🇧🇷</span><span class="stat-label">Portuguese Native</span></div>
+        </div>
+      </div>
+      <div class="about-education">
+        <div class="education-card">
+          <div class="education-icon">🎓</div>
+          <div class="education-content"><h3>Education</h3><p>UTFPR - Federal University of Technology - Paraná</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="skills" class="skills">
+  <div class="container">
+    <h2 class="section-title">Skills & <span class="highlight">Technologies</span></h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">.NET</div>
+        <h3>.NET & C#</h3>
+        <p>Robust applications with .NET, C# and ASP.NET MVC</p>
+        <div class="skill-tags"><span>C#</span><span>ASP.NET MVC</span><span>Entity Framework</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">AZ</div>
+        <h3>Microsoft Azure</h3>
+        <p>Scalable cloud solutions and modern architectures</p>
+        <div class="skill-tags"><span>Cloud</span><span>DevOps</span><span>Microservices</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📱</div>
+        <h3>Flutter & Dart</h3>
+        <p>Native scalable apps with BloC and Provider</p>
+        <div class="skill-tags"><span>Dart</span><span>BloC</span><span>Provider</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🍎</div>
+        <h3>iOS & Swift</h3>
+        <p>Native iOS development with Swift and SwiftUI</p>
+        <div class="skill-tags"><span>Swift</span><span>SwiftUI</span><span>Combine</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">SQL</div>
+        <h3>Database</h3>
+        <p>Data design and implementation solutions</p>
+        <div class="skill-tags"><span>SQL Server</span><span>PostgreSQL</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <h3>Web Development</h3>
+        <p>Modern web applications and PWAs</p>
+        <div class="skill-tags"><span>PWA</span><span>Angular</span><span>REST APIs</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title">Professional <span class="highlight">Experience</span></h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">Current</span>
+          <h3>Software Engineer</h3>
+          <h4>CRM-PR - Regional Medical Council of Paraná</h4>
+          <p>Developing technological solutions for healthcare, working on critical systems that impact millions of users.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="certifications" class="skills">
+  <div class="container">
+    <h2 class="section-title">Microsoft <span class="highlight">Certifications</span></h2>
+    <div class="certs-grid">
+      <div class="cert-card"><div class="cert-icon">🏆</div><h3>MCSD: App Builder</h3><p>2018 - Microsoft Certified Solutions Developer</p></div>
+      <div class="cert-card"><div class="cert-icon">🏆</div><h3>MCSA: Web Applications</h3><p>2018 - Microsoft Certified Solutions Associate</p></div>
+      <div class="cert-card"><div class="cert-icon">☁️</div><h3>Exam 532: Azure Solutions</h3><p>2018</p></div>
+      <div class="cert-card"><div class="cert-icon">🔧</div><h3>Exam 486: ASP.NET MVC</h3><p>2018</p></div>
+      <div class="cert-card"><div class="cert-icon">💻</div><h3>Exam 483: Programming in C#</h3><p>2018</p></div>
+      <div class="cert-card"><div class="cert-icon">📱</div><h3>Flutter, BloC and Provider</h3><p>Complete Course</p></div>
+    </div>
+  </div>
+</section>
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Let's <span class="highlight">Connect?</span></h2>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/perfeito" class="contact-link" target="_blank" rel="noopener">
+        <div class="contact-icon">💼</div>
+        <div class="contact-info"><h3>LinkedIn</h3><p>linkedin.com/in/perfeito</p></div>
+      </a>
+      <a href="mailto:contato@perfeito.dev" class="contact-link">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-info"><h3>Email</h3><p>contato@perfeito.dev</p></div>
+      </a>
+      <div class="contact-link" style="cursor:default">
+        <div class="contact-icon">📍</div>
+        <div class="contact-info"><h3>Location</h3><p>Curitiba, Paraná, Brazil</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <p>© 2024 Faberson Perfeito. Built with code and coffee.</p>
+</footer>
+<script>
+(function(){const t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');document.documentElement.setAttribute('data-theme',t);document.getElementById('themeToggle').textContent=t==='light'?'☀️':'🌙'})();
+document.getElementById('themeToggle').onclick=()=>{const h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.getElementById('themeToggle').textContent=n==='light'?'☀️':'🌙'};
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.onclick=e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})});
+</script>
+</body>
+</html>
